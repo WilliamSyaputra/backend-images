@@ -1,0 +1,147 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API untuk mengelola gambar (lihat list, lihat satu, upload, dan hapus)",
+    "title": "Image API",
+    "contact": {},
+    "version": "1.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "paths": {
+    "/images": {
+      "get": {
+        "description": "Mengambil semua gambar yang ada di folder images",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["Images"],
+        "summary": "Lihat daftar gambar",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/{name}": {
+      "get": {
+        "description": "Mengambil satu gambar berdasarkan nama",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["Images"],
+        "summary": "Lihat satu gambar",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Nama Gambar",
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Menghapus gambar berdasarkan nama",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["Images"],
+        "summary": "Hapus gambar",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Nama Gambar",
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/upload": {
+      "post": {
+        "description": "Mengupload gambar ke folder images",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "tags": ["Images"],
+        "summary": "Upload gambar",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "File Gambar",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/uploads": {
+      "post": {
+        "description": "Mengupload banyak gambar ke folder images",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "tags": ["Images"],
+        "summary": "Upload gambar",
+        "parameters": [
+          {
+            "type": "array",
+            "items": {
+              "type": "file"
+            },
+            "description": "File Gambar",
+            "name": "files",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,117 @@
+basePath: /api/v1
+host: localhost:3000
+info:
+  contact: {}
+  description: API untuk mengelola gambar (lihat list, lihat satu, upload, dan hapus)
+  title: Image API
+  version: "1.0"
+paths:
+  /images:
+    get:
+      consumes:
+      - application/json
+      description: Mengambil semua gambar yang ada di folder images
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+      summary: Lihat daftar gambar
+      tags:
+      - Images
+  /images/{name}:
+    delete:
+      consumes:
+      - application/json
+      description: Menghapus gambar berdasarkan nama
+      parameters:
+      - description: Nama Gambar
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Hapus gambar
+      tags:
+      - Images
+    get:
+      consumes:
+      - application/json
+      description: Mengambil satu gambar berdasarkan nama
+      parameters:
+      - description: Nama Gambar
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: file
+      summary: Lihat satu gambar
+      tags:
+      - Images
+  /upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Mengupload gambar ke folder images
+      parameters:
+      - description: File Gambar
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Upload gambar
+      tags:
+      - Images
+  /uploads:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Mengupload banyak gambar ke folder images
+      parameters:
+      - description: File Gambar
+        in: formData
+        name: files
+        required: true
+        type: array
+        items:
+          type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+      summary: Upload gambar
+      tags:
+      - Images
+swagger: "2.0"
